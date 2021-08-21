@@ -1,5 +1,4 @@
-//Circular Queue Data Structure with n space used of n available space
-
+#pragma once
 #include <iostream>
 using namespace std;
 

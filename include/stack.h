@@ -1,4 +1,5 @@
 //Stack Header File
+#pragma once
 #include <iostream>
 
 template <typename T>

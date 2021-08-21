@@ -90,7 +90,7 @@ void Graph::removeVertex(Vertex *vertexToRemove){
 	temp = this->VHEAD;
 	Node *nodeToDelete = new Node();
 	
-
+	// Remove all incoming edges to the vertex
 	while(temp!=NULL)
 	{	
 		nodeToDelete = temp->neighbours->get_head();
@@ -110,10 +110,13 @@ void Graph::removeVertex(Vertex *vertexToRemove){
 	}	
 	
 	delete temp;
-	
+	 
+	 
+	//Removes all outgoing edges from the vertexToRemove and the vertex itself
 	Vertex *newtemp = new Vertex();
 	newtemp = this->VHEAD;
 	
+	// If the vertex to be deleted is the vertex at VHEAD
 	if(this->VHEAD->key == vertexToRemove->key){
 		
 		this->VHEAD = newtemp->next;
@@ -171,7 +174,7 @@ int Graph::numEdges(){
 	
 	if(this->isdirected)
 	{
-		return temp/2;
+		return temp/2; 
 	}
 	else
 	{
@@ -181,15 +184,7 @@ int Graph::numEdges(){
 	delete vtemp;
 }
 
-bool Graph::isDirected(){
-	
-	/*while(vtemp!=NULL)
-	{
-		while()
-	}*/
-}
-
-
+// Count all the incoming edges to the given vertex
 int Graph::indegree(Vertex *vertex){
 	
 	int temp = 0;
@@ -210,6 +205,7 @@ int Graph::indegree(Vertex *vertex){
 		
 }
 
+// Count all the outgoing edges to the given vertex
 int Graph::outdegree(Vertex *vertex){
 	
 	int temp = 0;
@@ -220,6 +216,7 @@ int Graph::outdegree(Vertex *vertex){
 		
 }
 
+//Sum of incoming edges and outgoing edges(for directed graph)
 int Graph::degree(Vertex *vertex){
 	
 	if(this->isdirected){
@@ -231,22 +228,35 @@ int Graph::degree(Vertex *vertex){
 		
 }
 
+//Vertices that are associated with a edge of length 1
 void Graph::neighbours(Vertex *vertex){
 	
-	Node * a = new Node();
-	a = vertex->neighbours->get_head();
+	Vertex * a = new Vertex();
+	Node * b = new Node();
+	a = this->VHEAD;
 	
 	while(a!=NULL){
 		
-		std::cout<<a->info<<",";
+		b = a->neighbours->get_head();
+		while(b!=NULL){
+			
+			if(vertex->key == b->info)
+				std::cout<<a->key<<",";
+			
+			else if(vertex->key == a->key)
+				std::cout<<b->info<<",";
+
+			b = b->next;	
+		}
 		a = a->next;
 		
 	}
 	std::cout<<"\n";
-	delete a;
 	
+	delete b,a;	
 }
 
+//Check if two vertex are neighbours or not
 bool Graph::neighbour(Vertex *vertex1, Vertex *vertex2){
 	
 	int result_1 = vertex1->neighbours->search(vertex2->key);  
@@ -262,6 +272,7 @@ bool Graph::neighbour(Vertex *vertex1, Vertex *vertex2){
 	
 }
 
+//Mark the visited vertices to false
 void Graph::Init()
 {
 	Vertex *temp = new Vertex();
@@ -275,6 +286,7 @@ void Graph::Init()
 	
 }
 
+// Depth First Search
 void Graph::dfs(IGraph *g,Vertex *s){
 	
 	Vertex *u = new Vertex();
@@ -295,15 +307,15 @@ void Graph::dfs(IGraph *g,Vertex *s){
 		
 		while(v!=NULL)
 		{
-			if(g->neighbour(u,v))
-				if(v->marked == false)
+			if(g->neighbour(u,v)) //Check if u and v are neighbours
+				if(v->marked == false) //Check if v is visited 
 					break;
 				
 			v = v->next;
 		}
 		
 		if(v==NULL){
-			std::cout<<L->pop()<<std::endl;
+			L->pop();
 		}
 		else{
 			v->marked = true;
@@ -314,12 +326,12 @@ void Graph::dfs(IGraph *g,Vertex *s){
 			
 	}
 
-	// Marked Vertices
+	//Displays all the marked vertices
 	
 	for(int i=0;i<this->numVertices();i++)
 	{
 
-		std::cout<<m[i]<<",";
+		std::cout<<"-->"<<m[i];
 		
 	}
 	std::cout<<"\n";
@@ -329,6 +341,7 @@ void Graph::dfs(IGraph *g,Vertex *s){
 	
 } 
 
+// Breadth First Search
 void Graph::bfs(IGraph *g,Vertex *s){
 	
 	Vertex *u = new Vertex();
@@ -357,7 +370,7 @@ void Graph::bfs(IGraph *g,Vertex *s){
 		
 		if(v==NULL){
 			
-			std::cout<<Q->dequeue()<<std::endl;
+			Q->dequeue();
 		}
 		else{
 			v->marked = true;
@@ -367,11 +380,11 @@ void Graph::bfs(IGraph *g,Vertex *s){
 			
 	}
 	
-	//Displays the BFS
+	//Displays all the marked vertices 
 	
 	for(int i=0;i<this->numVertices();i++)
 	{
-		std::cout<<m[i]<<",";
+		std::cout<<"-->"<<m[i];
 	}
 	std::cout<<"\n";
 	

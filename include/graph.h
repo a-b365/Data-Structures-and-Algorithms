@@ -29,7 +29,6 @@ class IGraph{
 		virtual void Init() = 0;
 		virtual bool isEmpty() = 0;
 		virtual int numVertices() = 0;
-		virtual bool isDirected() = 0;
 		virtual void addVertex(Vertex *newVertex) = 0;
 		virtual void addEdge(Vertex *vertex1, Vertex *vertex2) = 0;
 		virtual int numEdges() = 0;
@@ -56,7 +55,6 @@ class Graph : public IGraph{
 		void Init();
 		bool isEmpty();
 		int numVertices();
-		bool isDirected();
 		void addVertex(Vertex *newVertex);
 		void addEdge(Vertex *vertex1, Vertex *vertex2);
 		int numEdges();
