@@ -58,7 +58,7 @@ void Graph::addVertex(Vertex *newVertex){
 void Graph::addEdge(Vertex *vertex1, Vertex *vertex2)
 {
 	
-	if(this->isdirected)
+	if(!this->isdirected)
 	{
 		vertex1->neighbours->addToHead(vertex2->key);
 		vertex2->neighbours->addToHead(vertex1->key);
@@ -72,7 +72,7 @@ void Graph::addEdge(Vertex *vertex1, Vertex *vertex2)
 
 void Graph::removeEdge(Vertex *vertex1, Vertex *vertex2){
 	
-	if(this->isdirected)
+	if(!this->isdirected)
 	{
 		vertex1->neighbours->remove(vertex2->key);
 		vertex2->neighbours->remove(vertex1->key);
@@ -172,7 +172,7 @@ int Graph::numEdges(){
 	}
 
 	
-	if(this->isdirected)
+	if(!this->isdirected)
 	{
 		return temp/2; 
 	}
@@ -219,7 +219,7 @@ int Graph::outdegree(Vertex *vertex){
 //Sum of incoming edges and outgoing edges(for directed graph)
 int Graph::degree(Vertex *vertex){
 	
-	if(this->isdirected){
+	if(!this->isdirected){
 		return (this->outdegree(vertex)+this->indegree(vertex))/2;
 	}
 	else{
